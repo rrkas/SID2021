@@ -12,7 +12,7 @@ user_name = ""
 def configure_bg(*obj):
     for i in obj:
         i["bg"] = "white"
-    # obj.configure(background='white')
+        # obj.configure(background='white')
 
 
 class Data:
@@ -79,7 +79,6 @@ class WelcomeWindow:
         name_frame = tk.Frame(
             self.frame, highlightbackground="blue", highlightthickness=1
         )
-        configure_bg(name_frame)
         name_label = tk.Label(name_frame, text="Enter Name: ", font=("Arial", 18))
         name_label.pack(side=tk.LEFT)
         name_entry = tk.Entry(name_frame, textvariable=name_var)
@@ -93,13 +92,9 @@ class WelcomeWindow:
             user_name = name_var.get()
             self.start_game()
 
-        button_frame = tk.Frame(
-            self.frame, highlightbackground="blue", highlightthickness=1
-        )
-        button = tk.Button(button_frame, text="Start Game!", command=save_user_name)
+        button = tk.Button(self.frame, text="Start Game!", command=save_user_name)
         button.pack()
-        button_frame.pack()
-        configure_bg(button_frame, button)
+        configure_bg(button)
 
     def start_game(self):
         # open game window
@@ -171,19 +166,19 @@ class GameWindow:
 
         def show_chosen_system(k):
             size = 200
-            img = Image.open(os.path.join(".", "assets", Data.actions[k]))
+            img = Image.open(os.path.join(os.path.dirname(__file__), "assets", Data.actions[k]))
             img = img.resize((size, size))
             img = ImageTk.PhotoImage(img)
-            user_option = tk.Label(self.frame, image=img)
-            user_option.image = img
-            user_option.grid(
+            system_option = tk.Label(self.frame, image=img)
+            system_option.image = img
+            system_option.grid(
                 row=1,
                 column=options_col_span + chosen_col_span + vs_col_span,
-                rowspan=6,
+                rowspan=5,
                 columnspan=chosen_col_span,
                 padx=20,
             )
-            configure_bg(user_option)
+            configure_bg(system_option)
 
         option_size = 60
         # options and chosen
@@ -196,7 +191,7 @@ class GameWindow:
             option_user.image = img
             option_user.grid(
                 row=1 + i,
-                column=options_col_span + option_size * 2 + vs_col_span,
+                column=options_col_span + chosen_col_span * 2 + vs_col_span,
                 columnspan=options_col_span,
                 pady=10,
             )
@@ -216,7 +211,7 @@ class GameWindow:
             user_option.grid(
                 row=1,
                 column=options_col_span,
-                rowspan=6,
+                rowspan=5,
                 columnspan=chosen_col_span,
                 padx=20,
             )
@@ -234,7 +229,6 @@ class GameWindow:
 
         show_chosen_user(Data.empty, True)
 
-        option_size = 60
         # options and chosen
         for i in range(len(Data.actions.items())):
             k, v = list(Data.actions.items())[i]
@@ -243,7 +237,7 @@ class GameWindow:
             img = ImageTk.PhotoImage(img)
             option_user = tk.Label(self.frame, image=img)
             option_user.image = img
-            option_user.bind("<Button-1>", lambda _, k=k: show_chosen_user(k))
+            option_user.bind("<Button-1>", lambda _, b=k: show_chosen_user(b))
             option_user.grid(row=1 + i, column=0, columnspan=options_col_span, pady=10)
             configure_bg(option_user)
 
