@@ -1,4 +1,5 @@
-.idea
+**/.idea
 *.pyc
 .ipynb_checkpoints
 **/venv/
+*.db
