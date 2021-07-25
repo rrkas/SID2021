@@ -12,9 +12,11 @@ def bind_widgets_in_tag(tag, *widgets):
 class UtilData:
     def __init__(self):
         self.debug = False
+
         self.app_name = "Quizzit"
         self.is_teacher = False
         self.student_score = Score()
+
         self.quiz_db = QuizDB()
         self.score_db = ScoreDB()
 

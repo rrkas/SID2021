@@ -14,13 +14,13 @@ class QuizListScreen:
 
     # load widgets on screen
     def load_components(self):
-        heading_label = tk.Label(self.frame, text="Quizzes", font=("Arial", 25, "bold"))
+        heading_label = tk.Label(self.frame, text=util_data.app_name, font=("Arial", 25, "bold"))
         heading_label.pack()
         quizzes = util_data.quiz_db.quizzes()
         quizzes_frame = VerticalScrolledFrame(self.frame)
         quizzes_frame.pack()
         for quiz in quizzes:
-            _QuizItem(self.master, self.frame, quizzes_frame, quiz)
+            _QuizItem(self.master, self.frame, quizzes_frame.interior, quiz)
         if util_data.is_teacher:
             back_btn = tk.Button(self.frame, text="Go Back", command=self.go_back)
             back_btn.pack()
